@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import type React from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,7 +59,7 @@ function Index() {
     <div className="relative overflow-x-hidden">
       <div className="grain" />
 
-      <nav className="fixed left-1/2 top-4 z-40 flex w-[calc(100%-32px)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-full bg-card/70 px-4 py-2.5 shadow-soft backdrop-blur-[20px]">
+      <nav className="animate-appear fixed left-1/2 top-4 z-40 flex w-[calc(100%-32px)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-full bg-card/70 px-4 py-2.5 shadow-soft backdrop-blur-[20px]">
         <a href="#" className="flex items-center gap-2 text-sm font-medium">
           <span className="grid h-7 w-7 place-items-center rounded-full bg-primary"><span className="h-2 w-2 rounded-full bg-card" /></span>
           Mara &amp; Wren
@@ -76,14 +77,14 @@ function Index() {
       <section className="relative flex min-h-[92vh] flex-col items-center justify-center px-6 pt-28 text-center">
         <div className="animate-float absolute -left-20 top-24 h-80 w-80 rounded-full bg-blush opacity-60 blur-3xl" />
         <div className="animate-float absolute -right-16 bottom-10 h-96 w-96 rounded-full bg-lilac opacity-60 blur-3xl [animation-delay:-3s]" />
-        <p className="reveal relative mb-6 rounded-full bg-card/70 px-4 py-1.5 text-sm text-muted-foreground shadow-soft">Women-led family &amp; workplace law</p>
-        <h1 className="reveal relative max-w-4xl text-5xl font-light leading-[1.05] md:text-7xl">
+        <p className="animate-appear relative mb-6 rounded-full bg-card/70 px-4 py-1.5 text-sm text-muted-foreground shadow-soft">Women-led family &amp; workplace law</p>
+        <h1 style={{ animationDelay: "150ms" }} className="animate-appear relative max-w-4xl text-5xl font-light leading-[1.05] md:text-7xl">
           Legal care that <span className="font-hand text-6xl text-primary md:text-8xl">holds</span> you, not just your case.
         </h1>
-        <p className="reveal relative mt-6 max-w-[500px] text-lg text-muted-foreground">
+        <p style={{ animationDelay: "300ms" }} className="animate-appear relative mt-6 max-w-[500px] text-lg text-muted-foreground">
           We're a small firm of women attorneys helping women through divorce, custody, workplace harm and safety — slowly, clearly, kindly.
         </p>
-        <div className="reveal relative mt-10 flex flex-wrap justify-center gap-3">
+        <div style={{ animationDelay: "450ms" }} className="animate-appear relative mt-10 flex flex-wrap justify-center gap-3">
           <a href="#book" className="rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-coral transition hover:-translate-y-0.5">Free consultation</a>
           <a href="#moments" className="rounded-full border border-border bg-card px-7 py-3.5 font-medium">How we help</a>
         </div>
@@ -95,8 +96,8 @@ function Index() {
           <h2 className="text-4xl font-light md:text-5xl">It usually starts with a moment <span className="font-hand text-5xl text-muted-foreground">like these</span></h2>
         </div>
         <div className="no-scrollbar mt-10 flex gap-4 overflow-x-auto px-6 pb-4 md:px-[max(1.5rem,calc((100vw-64rem)/2))]">
-          {moments.map(([t, s]) => (
-            <div key={s} className="group flex h-40 w-72 shrink-0 flex-col justify-between rounded-3xl bg-card p-6 shadow-soft">
+          {moments.map(([t, s], i) => (
+            <div key={s} style={{ "--d": `${i * 100}ms` } as React.CSSProperties} className="reveal group flex h-40 w-72 shrink-0 flex-col justify-between rounded-3xl bg-card p-6 shadow-soft">
               <span className="text-sm text-muted-foreground/70">{t}</span>
               <p className="text-xl leading-snug text-foreground transition-colors duration-500 group-hover:text-primary">{s}</p>
             </div>
@@ -129,8 +130,8 @@ function Index() {
       <section id="notes" className="px-6 py-28">
         <h2 className="reveal mx-auto max-w-4xl text-4xl font-light md:text-5xl">Notes from <span className="font-hand text-5xl text-primary">our women</span></h2>
         <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
-          {notes.map(([q, n, r]) => (
-            <figure key={n} className={`reveal rounded-[2rem] bg-card p-8 shadow-soft ${r}`}>
+          {notes.map(([q, n, r], i) => (
+            <figure key={n} style={{ "--d": `${i * 120}ms` } as React.CSSProperties} className={`reveal rounded-[2rem] bg-card p-8 shadow-soft ${r}`}>
               <blockquote className="text-lg leading-relaxed">“{q}”</blockquote>
               <figcaption className="mt-6 flex items-center gap-3">
                 <span className="h-px w-8 bg-muted-foreground/50" />
@@ -146,7 +147,7 @@ function Index() {
         <h2 className="reveal mx-auto max-w-2xl text-center text-4xl font-light">Quiet questions</h2>
         <div className="mx-auto mt-10 max-w-2xl space-y-3">
           {faqs.map(([q, a], i) => (
-            <div key={q} className="rounded-2xl border border-border/60 bg-card">
+            <div key={q} style={{ "--d": `${i * 80}ms` } as React.CSSProperties} className="reveal rounded-2xl border border-border/60 bg-card">
               <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center justify-between p-6 text-left font-medium">
                 {q}
                 <span className={`text-2xl font-light transition-transform duration-500 ${open === i ? "rotate-45" : ""}`}>+</span>
