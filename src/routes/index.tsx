@@ -1,202 +1,60 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import type React from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, HeartHandshake, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
+import { useState, type CSSProperties } from "react";
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { CTA, SectionHeading, SiteShell, useReveal } from "@/components/site/SiteShell";
+import { practices, testimonials } from "@/components/site/data";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Mara & Wren — A softer law firm for women" },
-      { name: "description", content: "Women-led legal care for divorce, custody, workplace and safety matters. Calm, clear, and on your side." },
-      { property: "og:title", content: "Mara & Wren — A softer law firm for women" },
-      { property: "og:description", content: "Women-led legal care for divorce, custody, workplace and safety matters." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
+  head: () => ({ meta: [
+    { title: "Mara & Wren — A softer law firm for women" },
+    { name: "description", content: "Women-led legal care for divorce, custody, workplace and safety matters. Calm, clear, and on your side." },
+    { property: "og:title", content: "Mara & Wren — A softer law firm for women" },
+    { property: "og:description", content: "Women-led legal care for divorce, custody, workplace and safety matters." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+  ]}), component: Home,
 });
 
-function useReveal() {
-  useEffect(() => {
-    const els = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add("is-visible")),
-      { threshold: 0.15 },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-}
-
 const moments = [
-  ["11:42 pm", "He said I'll never see the kids again."],
-  ["Tuesday, 8:05 am", "My manager cut my hours after I told him I'm pregnant."],
-  ["Sunday", "I want a divorce, but I don't know where to begin."],
-  ["3:17 am", "I need to feel safe in my own home."],
-  ["Last spring", "My prenup doesn't feel fair anymore."],
+  ["11:42 pm", "He said I’ll never see the kids again."], ["Tuesday, 8:05 am", "My manager cut my hours after I told him I’m pregnant."], ["Sunday", "I want a divorce, but I don’t know where to begin."], ["3:17 am", "I need to feel safe in my own home."],
 ];
-
-const notes = [
-  ["I walked in shaking and walked out with a plan. They never once made me feel small.", "Danielle R.", "rotate-1"],
-  ["Custody was the hardest year of my life. Mara made it the most bearable.", "Priya S.", "-rotate-1"],
-  ["They explained everything twice, gently, without me asking.", "Leah M.", "-rotate-1"],
-  ["My settlement was fair. My dignity stayed intact. Both mattered.", "Ana T.", "rotate-1"],
-];
-
 const faqs = [
-  ["Is the first consultation really free?", "Yes. Your first 30-minute conversation costs nothing and carries no obligation. We just listen and map out your options."],
-  ["Is everything I share confidential?", "Always. Attorney–client privilege begins from your very first message to us, even before you hire us."],
-  ["What areas of law do you handle?", "Divorce and separation, child custody and support, workplace discrimination and harassment, protective orders, and prenuptial agreements."],
-  ["Can we meet somewhere other than an office?", "Of course. We offer video calls, phone calls, and quiet in-person meetings in our living-room-style office."],
+  ["Is the first consultation really free?", "Yes. Your first 15-minute conversation costs nothing and carries no obligation. We listen, learn what is happening and help identify a sensible next step."],
+  ["Is everything I share confidential?", "Your first conversation is treated with care and discretion. We will explain when attorney–client privilege begins and how your information is protected."],
+  ["How much will my case cost?", "It depends on the work your matter needs. Before you commit, we explain likely fees, possible paths and where costs can change."],
+  ["How long will my case take?", "Every matter has its own pace. We give you a realistic timeline after understanding the facts and keep you updated as it changes."],
 ];
 
-function Index() {
-  useReveal();
-  const [open, setOpen] = useState<number | null>(0);
-  const [sent, setSent] = useState(false);
+function Home() {
+  useReveal(); const [sent, setSent] = useState(false);
+  return <SiteShell>
+    <section className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 pb-16 pt-32 text-center">
+      <div className="ambient ambient-left bg-blush" /><div className="ambient ambient-right bg-lilac" />
+      <p className="animate-appear relative mb-6 rounded-full bg-card/80 px-4 py-1.5 text-sm text-muted-foreground shadow-soft">Women-led family, workplace &amp; safety law</p>
+      <h1 style={{ animationDelay: "150ms" }} className="animate-appear relative max-w-4xl text-5xl font-light leading-[1.05] md:text-7xl">Legal care that <span className="font-hand text-6xl text-primary md:text-8xl">holds</span> you, not just your case.</h1>
+      <p style={{ animationDelay: "300ms" }} className="animate-appear relative mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">A small team of women attorneys helping women move through divorce, custody, workplace harm and safety with calm, clear guidance.</p>
+      <div style={{ animationDelay: "450ms" }} className="animate-appear relative mt-9 flex flex-wrap justify-center gap-3"><Button asChild size="lg" className="rounded-full px-7"><a href="#book">Free consultation</a></Button><Button asChild size="lg" variant="outline" className="rounded-full px-7"><Link to="/about">Meet the firm</Link></Button></div>
+      <p className="relative mt-14 text-xs uppercase tracking-widest text-muted-foreground">A first conversation. No pressure. Complete confidence.</p>
+    </section>
 
-  return (
-    <div className="relative overflow-x-hidden">
-      <div className="grain" />
+    <section className="border-y border-border bg-card px-6 py-8"><div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-12 gap-y-5 text-center text-sm font-medium text-muted-foreground"><span>State Bar member</span><span>Women in Law Alliance</span><span>Family Advocacy Network</span><span>Community Legal Care</span></div></section>
 
-      <nav className="fixed left-1/2 top-4 z-40 flex w-[calc(100%-32px)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-full bg-card/70 px-4 py-2.5 shadow-soft backdrop-blur-[20px]">
-        <a href="#" className="flex items-center gap-2 text-sm font-medium">
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-primary"><span className="h-2 w-2 rounded-full bg-card" /></span>
-          Mara &amp; Wren
-        </a>
-        <div className="hidden gap-6 text-sm font-medium text-muted-foreground md:flex">
-          <a href="#moments" className="hover:text-foreground">Practice</a>
-          <a href="#process" className="hover:text-foreground">Process</a>
-          <a href="#notes" className="hover:text-foreground">Clients</a>
-          <a href="#faq" className="hover:text-foreground">FAQ</a>
-        </div>
-        <a href="#book" className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background">Book a call</a>
-      </nav>
+    <section className="py-24"><div className="mx-auto max-w-5xl px-6"><SectionHeading kicker="When it gets real" title={<>It often starts with a moment <span className="font-hand text-5xl text-muted-foreground">like this</span></>} body="Whatever brought you here, you deserve to be heard before you are advised." /></div><div className="no-scrollbar mt-10 flex gap-4 overflow-x-auto px-6 pb-4 md:px-[max(1.5rem,calc((100vw-64rem)/2))]">{moments.map(([time, text], i) => <div key={text} style={{ "--d": `${i * 90}ms` } as CSSProperties} className="reveal flex h-44 w-72 shrink-0 flex-col justify-between rounded-2xl bg-card p-6 shadow-soft"><span className="text-sm text-muted-foreground">{time}</span><p className="text-xl leading-snug">{text}</p></div>)}</div></section>
 
-      {/* Hero */}
-      <section className="relative flex min-h-[92vh] flex-col items-center justify-center px-6 pt-28 text-center">
-        <div className="animate-float absolute -left-20 top-24 h-80 w-80 rounded-full bg-blush opacity-60 blur-3xl" />
-        <div className="animate-float absolute -right-16 bottom-10 h-96 w-96 rounded-full bg-lilac opacity-60 blur-3xl [animation-delay:-3s]" />
-        <p className="animate-appear relative mb-6 rounded-full bg-card/70 px-4 py-1.5 text-sm text-muted-foreground shadow-soft">Women-led family &amp; workplace law</p>
-        <h1 style={{ animationDelay: "150ms" }} className="animate-appear relative max-w-4xl text-5xl font-light leading-[1.05] md:text-7xl">
-          Legal care that <span className="font-hand text-6xl text-primary md:text-8xl">holds</span> you, not just your case.
-        </h1>
-        <p style={{ animationDelay: "300ms" }} className="animate-appear relative mt-6 max-w-[500px] text-lg text-muted-foreground">
-          We're a small firm of women attorneys helping women through divorce, custody, workplace harm and safety — slowly, clearly, kindly.
-        </p>
-        <div style={{ animationDelay: "450ms" }} className="animate-appear relative mt-10 flex flex-wrap justify-center gap-3">
-          <a href="#book" className="rounded-full bg-primary px-7 py-3.5 font-medium text-primary-foreground shadow-coral transition hover:-translate-y-0.5">Free consultation</a>
-          <a href="#moments" className="rounded-full border border-border bg-card px-7 py-3.5 font-medium">How we help</a>
-        </div>
-      </section>
+    <section className="bg-stone-soft px-6 py-24"><div className="mx-auto max-w-5xl"><SectionHeading kicker="Our approach" title={<>Soft where it matters. <span className="font-hand text-5xl text-primary">Strong</span> where it counts.</>} body="We make room for the full story, translate the legal language and advocate without losing sight of the life around your case." /><div className="mt-14 grid gap-5 md:grid-cols-3">{[[HeartHandshake,"Empathetic listening","We begin with your experience, your concerns and what a good outcome means to you."],[MessageCircle,"Clear communication","Plain words, honest options and no wondering what happens next."],[ShieldCheck,"Fierce advocacy","A thoughtful strategy does not mean a timid one. We protect what matters with resolve."]].map(([Icon,title,body],i) => { const I = Icon as typeof HeartHandshake; return <article key={String(title)} style={{ "--d": `${i * 100}ms` } as CSSProperties} className="reveal rounded-2xl border border-border bg-card p-7"><I className="h-6 w-6 text-primary"/><h3 className="mt-8 text-2xl font-light">{String(title)}</h3><p className="mt-3 leading-relaxed text-muted-foreground">{String(body)}</p></article>})}</div></div></section>
 
-      {/* Moments */}
-      <section id="moments" className="py-20">
-        <div className="reveal mx-auto max-w-5xl px-6">
-          <h2 className="text-4xl font-light md:text-5xl">It usually starts with a moment <span className="font-hand text-5xl text-muted-foreground">like these</span></h2>
-        </div>
-        <div className="no-scrollbar mt-10 flex gap-4 overflow-x-auto px-6 pb-4 md:px-[max(1.5rem,calc((100vw-64rem)/2))]">
-          {moments.map(([t, s], i) => (
-            <div key={s} style={{ "--d": `${i * 100}ms` } as React.CSSProperties} className="reveal group flex h-40 w-72 shrink-0 flex-col justify-between rounded-3xl bg-card p-6 shadow-soft">
-              <span className="text-sm text-muted-foreground/70">{t}</span>
-              <p className="text-xl leading-snug text-foreground transition-colors duration-500 group-hover:text-primary">{s}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+    <section className="px-6 py-24"><div className="mx-auto max-w-5xl"><SectionHeading kicker="How we help" title="Focused legal care for the life around the issue." /><div className="mt-12 grid gap-5 md:grid-cols-3">{practices.map((practice,i) => <article key={practice.slug} style={{ "--d": `${i * 100}ms` } as CSSProperties} className={`reveal flex min-h-80 flex-col rounded-2xl p-7 ${practice.accent}`}><span className="text-sm text-muted-foreground">0{i+1}</span><h3 className="mt-auto text-3xl font-light">{practice.title}</h3><p className="mt-3 text-sm leading-relaxed text-muted-foreground">{practice.short}</p><Link to="/practice-areas/$slug" params={{slug: practice.slug}} className="mt-6 inline-flex items-center gap-2 text-sm font-medium">Learn more <ArrowRight className="h-4 w-4"/></Link></article>)}</div></div></section>
 
-      {/* Process */}
-      <section id="process" className="px-6 py-24">
-        <div className="reveal mx-auto max-w-2xl text-center">
-          <h2 className="text-4xl font-light md:text-5xl">Three gentle steps</h2>
-          <p className="mt-4 text-muted-foreground">From your first breath to your final signature.</p>
-        </div>
-        <div className="mt-16 flex items-start justify-center gap-4 md:gap-8">
-          <Panel className="hidden h-[580px] w-[280px] translate-y-12 bg-sage opacity-80 md:flex" step="01" title="Listen" body="Tell us your story at your pace. No forms, no rush, no judgment." />
-          <div className="reveal flex h-[620px] w-[300px] shrink-0 flex-col items-center justify-between rounded-[3rem] border-8 border-card bg-background p-8 text-center shadow-soft">
-            <span className="text-sm text-muted-foreground">02 · Breathe</span>
-            <div>
-              <h3 className="text-3xl font-light">Your plan, in plain words</h3>
-              <p className="mt-3 text-sm text-muted-foreground">We lay out every option, cost and timeline before you decide anything.</p>
-            </div>
-            <a href="#book" className="animate-pulse-soft grid h-36 w-36 place-items-center rounded-full bg-primary font-medium">Breathe</a>
-            <span className="font-hand text-2xl text-muted-foreground">you're not alone</span>
-          </div>
-          <Panel className="hidden h-[580px] w-[280px] translate-y-24 bg-lavender opacity-80 md:flex" step="03" title="Stand with you" body="In negotiation and in court, we speak for you so you can rest." />
-        </div>
-      </section>
+    <section className="bg-card px-6 py-24"><div className="mx-auto grid max-w-5xl gap-14 md:grid-cols-[.8fr_1.2fr] md:items-start"><SectionHeading kicker="The way through" title={<>Three steps. One steady <span className="font-hand text-5xl text-primary">hand.</span></>} body="We keep the process understandable so your energy can go where it is needed most."/><div className="space-y-4">{[["01","Tell us your story","A short, private call at your pace."],["02","See your options","A clear plan, likely costs and honest trade-offs."],["03","Move with support","We guide, negotiate and represent you through resolution."]].map(([n,t,b],i)=><div key={n} style={{"--d":`${i*100}ms`} as CSSProperties} className="reveal grid grid-cols-[3rem_1fr] gap-4 border-b border-border py-6"><span className="font-hand text-3xl text-primary">{n}</span><div><h3 className="text-xl font-medium">{t}</h3><p className="mt-2 text-muted-foreground">{b}</p></div></div>)}</div></div></section>
 
-      {/* Notes */}
-      <section id="notes" className="px-6 py-28">
-        <h2 className="reveal mx-auto max-w-4xl text-4xl font-light md:text-5xl">Notes from <span className="font-hand text-5xl text-primary">our women</span></h2>
-        <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
-          {notes.map(([q, n, r], i) => (
-            <figure key={n} style={{ "--d": `${i * 120}ms` } as React.CSSProperties} className={`reveal rounded-[2rem] bg-card p-8 shadow-soft ${r}`}>
-              <blockquote className="text-lg leading-relaxed">“{q}”</blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span className="h-px w-8 bg-muted-foreground/50" />
-                <span className="font-hand text-2xl text-muted-foreground">{n}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
+    <section className="px-6 py-24"><div className="mx-auto max-w-5xl"><SectionHeading kicker="Why women choose us" title="Legal strategy with the whole person in view."/><div className="mt-12 grid gap-8 md:grid-cols-3">{[["A safer space","You never have to minimize what happened to be taken seriously."],["A plan made for you","Advice shaped around your family, work, finances and future."],["Support beyond paperwork","Preparation that helps you feel grounded in every conversation and decision."]].map(([t,b],i)=><div key={t} style={{"--d":`${i*100}ms`} as CSSProperties} className="reveal border-l-2 border-primary pl-6"><h3 className="text-2xl font-light">{t}</h3><p className="mt-3 leading-relaxed text-muted-foreground">{b}</p></div>)}</div></div></section>
 
-      {/* FAQ */}
-      <section id="faq" className="px-6 py-20">
-        <h2 className="reveal mx-auto max-w-2xl text-center text-4xl font-light">Quiet questions</h2>
-        <div className="mx-auto mt-10 max-w-2xl space-y-3">
-          {faqs.map(([q, a], i) => (
-            <div key={q} style={{ "--d": `${i * 80}ms` } as React.CSSProperties} className="reveal rounded-2xl border border-border/60 bg-card">
-              <button onClick={() => setOpen(open === i ? null : i)} className="flex w-full items-center justify-between p-6 text-left font-medium">
-                {q}
-                <span className={`text-2xl font-light transition-transform duration-500 ${open === i ? "rotate-45" : ""}`}>+</span>
-              </button>
-              <div className={`grid transition-all duration-500 ease-in-out ${open === i ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                <div className="overflow-hidden"><p className="px-6 pb-6 text-muted-foreground">{a}</p></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+    <section className="bg-lavender/60 px-6 py-24"><div className="mx-auto max-w-5xl"><SectionHeading kicker="Client notes" title={<>Words left in the <span className="font-hand text-5xl text-primary">margins</span></>} /><div className="mt-12 grid gap-6 md:grid-cols-3">{testimonials.map(([quote,name],i)=><figure key={name} style={{"--d":`${i*100}ms`} as CSSProperties} className={`reveal rounded-2xl bg-card p-7 shadow-soft ${i===1?"md:translate-y-8":""}`}><Sparkles className="h-5 w-5 text-primary"/><blockquote className="mt-6 text-lg leading-relaxed">“{quote}”</blockquote><figcaption className="mt-6 font-hand text-2xl text-muted-foreground">— {name}</figcaption></figure>)}</div></div></section>
 
-      {/* Book */}
-      <section id="book" className="relative overflow-hidden px-6 py-32 text-center">
-        <div className="animate-float absolute left-1/4 top-10 h-72 w-72 rounded-full bg-blush blur-3xl" />
-        <div className="animate-float absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-sage blur-3xl [animation-delay:-2s]" />
-        <div className="reveal relative mx-auto max-w-xl">
-          <div className="relative mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-foreground">
-            <span className="h-3 w-3 rounded-full bg-primary" />
-          </div>
-          <h2 className="mt-8 text-4xl font-light md:text-6xl">Let's talk, <span className="font-hand text-6xl text-primary">softly</span></h2>
-          <p className="mt-4 text-muted-foreground">Leave your email and we'll reach out within one business day to book your free, confidential consultation.</p>
-          {sent ? (
-            <p className="mt-10 font-hand text-3xl">Thank you — we'll be in touch soon.</p>
-          ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="mt-10 flex flex-col gap-3 rounded-full sm:flex-row">
-              <input required type="email" placeholder="you@email.com" className="flex-1 rounded-full border border-border bg-stone-soft px-6 py-4 outline-none focus:border-primary" />
-              <button className="rounded-full bg-foreground px-8 py-4 font-medium text-background transition-transform hover:scale-105">Request a call</button>
-            </form>
-          )}
-        </div>
-      </section>
+    <section className="px-6 py-24"><div className="mx-auto max-w-2xl"><SectionHeading center kicker="Common questions" title="A little clarity before we talk."/><Accordion type="single" collapsible defaultValue="item-0" className="mt-10">{faqs.map(([q,a],i)=><AccordionItem value={`item-${i}`} key={q} className="rounded-none border-border"><AccordionTrigger className="py-6 text-base hover:no-underline">{q}</AccordionTrigger><AccordionContent className="pb-6 pr-8 text-base leading-relaxed text-muted-foreground">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
 
-      <footer className="px-6 pb-10 text-center text-sm text-muted-foreground">
-        © 2026 Mara &amp; Wren Law · Attorney advertising. This site is not legal advice.
-      </footer>
-    </div>
-  );
-}
-
-function Panel({ className, step, title, body }: { className: string; step: string; title: string; body: string }) {
-  return (
-    <div className={`reveal shrink-0 flex-col justify-between rounded-[3rem] border-8 border-card p-8 shadow-soft ${className}`}>
-      <span className="text-sm text-muted-foreground">{step}</span>
-      <div>
-        <h3 className="text-3xl font-light">{title}</h3>
-        <p className="mt-3 text-sm text-muted-foreground">{body}</p>
-      </div>
-      <span className="font-hand text-2xl text-muted-foreground">step {step}</span>
-    </div>
-  );
+    <CTA />
+    <section id="book" className="scroll-mt-24 bg-blush/60 px-6 py-24"><div className="reveal mx-auto max-w-2xl text-center"><p className="font-hand text-3xl text-primary">start softly</p><h2 className="mt-2 text-4xl font-light md:text-5xl">Request your free call</h2><p className="mt-4 text-muted-foreground">Leave your email and we’ll reach out within one business day.</p>{sent?<p className="mt-9 text-2xl font-light">Thank you — we’ll be in touch soon.</p>:<form onSubmit={(event)=>{event.preventDefault();setSent(true)}} className="mx-auto mt-9 flex max-w-xl flex-col gap-3 sm:flex-row"><label className="sr-only" htmlFor="consult-email">Email address</label><input id="consult-email" required type="email" placeholder="you@email.com" className="min-h-12 flex-1 rounded-full border border-border bg-card px-5 outline-none focus:border-primary"/><Button type="submit" className="min-h-12 rounded-full bg-foreground px-7 text-background hover:bg-foreground/85">Request a call</Button></form>}</div></section>
+  </SiteShell>;
 }
