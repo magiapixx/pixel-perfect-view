@@ -59,7 +59,7 @@ function Index() {
     <div className="relative overflow-x-hidden">
       <div className="grain" />
 
-      <nav className="animate-appear fixed left-1/2 top-4 z-40 flex w-[calc(100%-32px)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-full bg-card/70 px-4 py-2.5 shadow-soft backdrop-blur-[20px]">
+      <nav className="fixed left-1/2 top-4 z-40 flex w-[calc(100%-32px)] max-w-3xl -translate-x-1/2 items-center justify-between rounded-full bg-card/70 px-4 py-2.5 shadow-soft backdrop-blur-[20px]">
         <a href="#" className="flex items-center gap-2 text-sm font-medium">
           <span className="grid h-7 w-7 place-items-center rounded-full bg-primary"><span className="h-2 w-2 rounded-full bg-card" /></span>
           Mara &amp; Wren
