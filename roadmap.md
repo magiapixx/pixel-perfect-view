@@ -1,0 +1,6 @@
+- [x] Expand the home page with the requested sections.
+- [x] Add About and Practice Areas pages with detail routes.
+- [x] Prioritize polished reveal animation and transitions between pages.
+- [x] Add Resources and resource detail pages.
+- [x] Add editorial photographs to practice, team, and resource cards.
+- [ ] Validate navigation, animations, desktop, and mobile layouts.
