@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,8 @@ export function useReveal() {
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
-  return <div className="relative min-h-screen overflow-x-hidden">
+  const locationKey = useRouterState({ select: (state) => state.location.href });
+  return <div key={locationKey} className="page-enter relative min-h-screen overflow-x-hidden">
     <div className="grain" />
     <header className="fixed inset-x-0 top-4 z-40 px-4">
       <nav className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-border/70 bg-card/85 px-4 py-2.5 shadow-soft backdrop-blur-xl">
